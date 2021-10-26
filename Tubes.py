@@ -109,5 +109,11 @@ class Tubes:
         # Interpolate value of jh
         self.jh = np.interp(l_over_di, l_over_di_list, y_data)
 
+    def solve_pitch(self):
+        # Solves for the pitch length
+
+        self.pitch = 1.25 * self.do
+
+
 
 

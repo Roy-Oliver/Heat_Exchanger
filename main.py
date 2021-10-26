@@ -29,6 +29,9 @@ def main():
     pitch_type = "triangular" # "triangular" or "square"
     tube_passes = 2
 
+    # Input properties of SHELL
+    baffle_spacing = 0.7 # As a fraction of shell diameter
+
     # Input Initial Guess for Overall Coefficient
     U0ass = 300 # W/m2 K
 
@@ -46,7 +49,7 @@ def main():
     he_tubes = Tubes(m_tube_in, Cp_tube, mu_tube, rho_tube, k_tube, head_type, k_tube_wall, L, di, do, pitch_type, tube_passes)
 
     # Initialize Shell Object
-    he_shell = Shell(m_shell_in, Cp_shell, mu_shell, rho_shell, k_shell)
+    he_shell = Shell(m_shell_in, Cp_shell, mu_shell, rho_shell, k_shell, baffle_spacing)
 
     # Initialize Heat Exchanger Object
     heat_exchanger = HeatExchanger(he_shell, he_tubes, U0ass, Q, DTm)
