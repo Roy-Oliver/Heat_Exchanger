@@ -26,6 +26,7 @@ class HeatExchanger:
         self.tubes.solve_bundle_diameter()
         self.tubes.solve_clearance()
         self.solve_shell_diameter()
+        self.tubes.solve_coefficient()
 
 
 
