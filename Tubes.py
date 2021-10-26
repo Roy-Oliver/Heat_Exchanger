@@ -104,9 +104,10 @@ class Tubes:
         y_data = []
         for i in l_over_di_list:
             # get jh data for Re for each value of L/di
-            y_data.append(np.interp(self.re, data["x"], data[i]))
+            y_data.append(np.interp(self.Re, data["x"], data[i]))
 
         # Interpolate value of jh
         self.jh = np.interp(l_over_di, l_over_di_list, y_data)
+
 
 

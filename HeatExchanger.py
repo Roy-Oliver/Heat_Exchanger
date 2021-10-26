@@ -21,7 +21,7 @@ class HeatExchanger:
 
     def solve(self):
         self.solve_heat_transfer_area()
-        self.tubes.solve_number_of_tubes()
+        self.tubes.solve_number_of_tubes(self.A0)
         self.tubes.solve_velocity()
         self.tubes.solve_bundle_diameter()
         self.tubes.solve_clearance()
