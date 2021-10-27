@@ -1,6 +1,6 @@
 import math
 import numpy as np
-from data import clearance_data, jh_tube_data
+from data import clearance_data, jh_tube_data, jf_tube_data
 
 class Tubes:
 
@@ -117,6 +117,17 @@ class Tubes:
         # Solves for the pitch length
 
         self.pitch = 1.25 * self.do
+
+    def solve_pressure_drop(self):
+        # Solves for pressure drop in tube side
+
+        # Interpolate value of jf
+        data = jf_tube_data()
+        self.jf = np.interp(self.Re, data[0], data[1])
+
+        # Calculate pressure drop
+        self.deltaP = self.tube_passes * (8 * self.jf * (self.L / self.di) + 2.5) * self.rho * (self.velocity ** 2) / 2
+        print(self.deltaP)
 
 
 

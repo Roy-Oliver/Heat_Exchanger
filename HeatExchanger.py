@@ -39,6 +39,8 @@ class HeatExchanger:
         self.shell.solve_reynolds(self.tubes.do, self.tubes.pitch)
         self.shell.solve_coefficient()
         self.solve_Uo()
+        self.tubes.solve_pressure_drop()
+
 
 
 

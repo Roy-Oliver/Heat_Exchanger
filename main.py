@@ -4,7 +4,7 @@ from HeatExchanger import HeatExchanger
 
 def main():
     # Input error threshold for loop calculations (Normally set to 30%)
-    error_threshold = 5 # In percentage
+    error_threshold = 30 # In percentage
 
     # Input properties of TUBE Stream
     m_tube_in = 37.8 # kg/s
