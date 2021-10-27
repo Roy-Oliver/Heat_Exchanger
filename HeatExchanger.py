@@ -19,6 +19,13 @@ class HeatExchanger:
         self.Ds = self.tubes.Db + self.tubes.clearance
 
 
+    def solve_Uo(self):
+        # Solves for the overall heat transfer coefficient
+
+        self.U0 = (1 / self.shell.hs + 1 / self.shell.hod + self.tubes.do * math.log(self.tubes.do / self.tubes.di) / (2 * self.tubes.kw) + (self.tubes.do / self.tubes.di) * (1 / self.tubes.hid + 1 / self.tubes.hi)) ** (-1)
+
+
+
     def solve(self):
         self.solve_heat_transfer_area()
         self.tubes.solve_number_of_tubes(self.A0)
@@ -31,6 +38,7 @@ class HeatExchanger:
         self.shell.solve_velocity(self.Ds, self.tubes.pitch, self.tubes.do)
         self.shell.solve_reynolds(self.tubes.do, self.tubes.pitch)
         self.shell.solve_coefficient()
+        self.solve_Uo()
 
 
 

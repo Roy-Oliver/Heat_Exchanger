@@ -2,7 +2,7 @@ import numpy as np
 from data import jh_shell_data
 
 class Shell:
-    def __init__(self, m_shell_in, Cp_shell, mu_shell, rho_shell, k_shell, baffle_spacing, baffle_cut):
+    def __init__(self, m_shell_in, Cp_shell, mu_shell, rho_shell, k_shell, baffle_spacing, baffle_cut, fouling_factor):
         self.m = m_shell_in
         self.Cp = Cp_shell
         self.mu= mu_shell
@@ -10,6 +10,7 @@ class Shell:
         self.k = k_shell
         self.baffle_spacing = baffle_spacing
         self.baffle_cut = baffle_cut
+        self.hod = fouling_factor
 
     def solve_velocity(self, shell_diameter, pitch, do):
         # Solves for coefficient in shell side
@@ -49,5 +50,5 @@ class Shell:
         # Compute for shell side heat transfer coefficient
         self.hs = self.jh * self.Re * (self.Pr ** (1/3)) * self.k / self.de
 
-        print(self.jh, self.Pr, self.hs)
+
 

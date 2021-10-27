@@ -4,7 +4,7 @@ from HeatExchanger import HeatExchanger
 
 def main():
     # Input error threshold for loop calculations (Normally set to 30%)
-    error_threshold = 30 # In percentage
+    error_threshold = 5 # In percentage
 
     # Input properties of TUBE Stream
     m_tube_in = 37.8 # kg/s
@@ -28,10 +28,13 @@ def main():
     do = 0.020 # m
     pitch_type = "triangular" # "triangular" or "square"
     tube_passes = 2
+    tube_fouling_factor = 1/0.0003 # W/m2 K
+    tube_thermal_resistance = 45 # W/m K
 
     # Input properties of SHELL
     baffle_spacing = 0.7 # As a fraction of shell diameter
     baffle_cut = 25 # in percent. Available 15, 25, 35, 45,
+    shell_fouling_factor = 2000 # W/m2 K
 
     # Input Initial Guess for Overall Coefficient
     U0ass = 300 # W/m2 K
@@ -47,10 +50,10 @@ def main():
 
 
     # Initialize Tubes Object
-    he_tubes = Tubes(m_tube_in, Cp_tube, mu_tube, rho_tube, k_tube, head_type, k_tube_wall, L, di, do, pitch_type, tube_passes)
+    he_tubes = Tubes(m_tube_in, Cp_tube, mu_tube, rho_tube, k_tube, head_type, k_tube_wall, L, di, do, pitch_type, tube_passes, tube_fouling_factor, tube_thermal_resistance)
 
     # Initialize Shell Object
-    he_shell = Shell(m_shell_in, Cp_shell, mu_shell, rho_shell, k_shell, baffle_spacing, baffle_cut)
+    he_shell = Shell(m_shell_in, Cp_shell, mu_shell, rho_shell, k_shell, baffle_spacing, baffle_cut, shell_fouling_factor)
 
     # Initialize Heat Exchanger Object
     heat_exchanger = HeatExchanger(he_shell, he_tubes, U0ass, Q, DTm)
@@ -60,7 +63,6 @@ def main():
     while error > error_threshold:
         U01 = heat_exchanger.U0
         heat_exchanger.solve() # update U0 of heat exchanger
-
         # Solve for error
         error = (abs(heat_exchanger.U0 - U01) / heat_exchanger.U0) * 100
 

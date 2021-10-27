@@ -4,7 +4,7 @@ from data import clearance_data, jh_tube_data
 
 class Tubes:
 
-    def __init__(self, m_tube_in, Cp_tube, mu_tube, rho_tube, k_tube, head_type, k_tube_wall, L, di, do, pitch_type, tube_passes):
+    def __init__(self, m_tube_in, Cp_tube, mu_tube, rho_tube, k_tube, head_type, k_tube_wall, L, di, do, pitch_type, tube_passes, fouling_factor, kw):
         self.m= m_tube_in
         self.Cp = Cp_tube
         self.mu = mu_tube
@@ -17,6 +17,8 @@ class Tubes:
         self.do = do
         self.pitch_type = pitch_type
         self.tube_passes = tube_passes
+        self.hid = fouling_factor
+        self.kw = kw
 
     def solve_number_of_tubes(self, A0):
         # Solves for the number of tubes
