@@ -1,5 +1,5 @@
 import numpy as np
-from data import jh_shell_data
+from data import jh_shell_data, jf_shell_data
 
 class Shell:
     def __init__(self, m_shell_in, Cp_shell, mu_shell, rho_shell, k_shell, baffle_spacing, baffle_cut, fouling_factor):
@@ -50,5 +50,14 @@ class Shell:
         # Compute for shell side heat transfer coefficient
         self.hs = self.jh * self.Re * (self.Pr ** (1/3)) * self.k / self.de
 
+    def solve_pressure_drop(self, Ds, L):
+        # Solves for the shell side pressure drop
+
+        # Interpolate shell jf
+        data = jf_shell_data()
+        self.jf = np.interp(self.Re, data[self.baffle_cut][0], data[self.baffle_cut][1])
+
+        # Solve for pressure drop
+        self.deltaP = 8 * self.jf * (Ds / self.de) * (L / self.lB) * self.rho * (self.velocity ** 2) / 2
 
 

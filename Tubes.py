@@ -127,7 +127,7 @@ class Tubes:
 
         # Calculate pressure drop
         self.deltaP = self.tube_passes * (8 * self.jf * (self.L / self.di) + 2.5) * self.rho * (self.velocity ** 2) / 2
-        print(self.deltaP)
+
 
 
 

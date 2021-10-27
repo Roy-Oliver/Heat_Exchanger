@@ -40,6 +40,7 @@ class HeatExchanger:
         self.shell.solve_coefficient()
         self.solve_Uo()
         self.tubes.solve_pressure_drop()
+        self.shell.solve_pressure_drop(self.Ds, self.tubes.L)
 
 
 
