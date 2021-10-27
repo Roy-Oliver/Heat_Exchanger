@@ -30,6 +30,7 @@ class HeatExchanger:
         self.tubes.solve_pitch()
         self.shell.solve_velocity(self.Ds, self.tubes.pitch, self.tubes.do)
         self.shell.solve_reynolds(self.tubes.do, self.tubes.pitch)
+        self.shell.solve_coefficient()
 
 
 
