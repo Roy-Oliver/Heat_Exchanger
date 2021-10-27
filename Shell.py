@@ -31,4 +31,3 @@ class Shell:
 
         # Solve for Reynolds number
         self.Re = self.velocity * self.de * self.rho / self.mu
-        print(self.Re)
