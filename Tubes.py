@@ -1,5 +1,6 @@
 import math
 import numpy as np
+from data import clearance_data
 
 class Tubes:
 
@@ -67,17 +68,17 @@ class Tubes:
 
         # Get clearance from Figure 12.10
         if self.head_type == "PFH":
-            data = {"x": [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2], "y": [0.087, 0.088, 0.089, 0.091, 0.092, 0.093, 0.094, 0.095, 0.096, 0.097, 0.098]}
-            self.clearance = np.interp(self.Db, data["x"], data["y"])
+            data = clearance_data()["PFH"]
+            self.clearance = np.interp(self.Db, data[0], data[1])
         elif self.head_type == "SFH":
-            data = {"x": [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2], "y": [0.050, 0.053, 0.055, 0.058, 0.061, 0.064, 0.067, 0.069, 0.072, 0.075, 0.078]}
-            self.clearance = np.interp(self.Db, data["x"], data["y"])
+            data = clearance_data()["SFH"]
+            self.clearance = np.interp(self.Db, data[0], data[1])
         elif self.head_type == "OPB":
-            data = {"x": [0.2, 1.2], "y": [0.038, 0.038]}
-            self.clearance = np.interp(self.Db, data["x"], data["y"])
+            data = clearance_data()["OPB"]
+            self.clearance = np.interp(self.Db, data[0], data[1])
         elif self.head_type == "FAU":
-            data = {"x": [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2], "y": [0.010, 0.011, 0.012, 0.013, 0.014, 0.015, 0.016, 0.017, 0.018, 0.019, 0.020]}
-            self.clearance = np.interp(self.Db, data["x"], data["y"])
+            data = clearance_data()["FAU"]
+            self.clearance = np.interp(self.Db, data[0], data[1])
         else:
             print("Invalid Head Type")
             exit()
