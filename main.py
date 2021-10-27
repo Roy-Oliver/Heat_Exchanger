@@ -60,14 +60,18 @@ def main():
 
     # Solve the Heat Exchanger
     error = 100 # set initial error
+    loop_count = 0
     while error > error_threshold:
         U01 = HE.U0
         HE.solve() # update U0 of heat exchanger
         # Solve for error
         error = (abs(HE.U0 - U01) / HE.U0) * 100
 
+        loop_count += 1
+
 
     # Print properties
+    print(f"Number of Loops = {loop_count}")
     print(f"U0 = {HE.U0}, Tube Pressure Drop = {HE.tubes.deltaP}, Shell Side Pressure Drop = {HE.shell.deltaP}")
 
 
