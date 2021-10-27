@@ -43,7 +43,7 @@ def main():
     Q = 2757004.614 # W
 
     # Input mean temp difference
-    DTm = 84.60
+    DTm = 84.60 # Kelvin
 
 
 
@@ -56,15 +56,19 @@ def main():
     he_shell = Shell(m_shell_in, Cp_shell, mu_shell, rho_shell, k_shell, baffle_spacing, baffle_cut, shell_fouling_factor)
 
     # Initialize Heat Exchanger Object
-    heat_exchanger = HeatExchanger(he_shell, he_tubes, U0ass, Q, DTm)
+    HE = HeatExchanger(he_shell, he_tubes, U0ass, Q, DTm)
 
     # Solve the Heat Exchanger
     error = 100 # set initial error
     while error > error_threshold:
-        U01 = heat_exchanger.U0
-        heat_exchanger.solve() # update U0 of heat exchanger
+        U01 = HE.U0
+        HE.solve() # update U0 of heat exchanger
         # Solve for error
-        error = (abs(heat_exchanger.U0 - U01) / heat_exchanger.U0) * 100
+        error = (abs(HE.U0 - U01) / HE.U0) * 100
+
+
+    # Print properties
+    print(f"U0 = {HE.U0}, Tube Pressure Drop = {HE.tubes.deltaP}, Shell Side Pressure Drop = {HE.shell.deltaP}")
 
 
 
