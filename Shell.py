@@ -2,7 +2,7 @@ import numpy as np
 from data import jh_shell_data, jf_shell_data
 
 class Shell:
-    def __init__(self, m_shell_in, Cp_shell, mu_shell, rho_shell, k_shell, baffle_spacing, baffle_cut, fouling_factor):
+    def __init__(self, m_shell_in, Cp_shell, mu_shell, rho_shell, k_shell, baffle_spacing, baffle_cut, fouling_factor, shell_passes):
         self.m = m_shell_in
         self.Cp = Cp_shell
         self.mu= mu_shell
@@ -11,6 +11,7 @@ class Shell:
         self.baffle_spacing = baffle_spacing
         self.baffle_cut = baffle_cut
         self.hod = fouling_factor
+        self.shell_passes = shell_passes
 
     def solve_velocity(self, shell_diameter, pitch, do):
         # Solves for coefficient in shell side
@@ -20,7 +21,7 @@ class Shell:
 
 
         # Solve for shell area
-        self.As = (pitch - do) * shell_diameter * self.lB / pitch
+        self.As = (pitch - do) * shell_diameter * self.lB / (pitch * self.shell_passes)
 
         # Solve for flux
         self.Gs = self.m / self.As
@@ -28,11 +29,14 @@ class Shell:
         # Solve for velocity
         self.velocity = self.Gs / self.rho
 
-    def solve_reynolds(self, do, pitch):
+    def solve_reynolds(self, do, pitch, pitch_type):
         # Solves for the Reynolds number of shell side
 
         # Solve for equivalent diameter
-        self.de = (1.10 / do) * ((pitch ** 2) - 0.917 * (do ** 2))
+        if pitch_type == "triangular":
+            self.de = (1.10 / do) * ((pitch ** 2) - 0.917 * (do ** 2))
+        elif pitch_type == "square":
+            self.de = (1.27 / do) * ((pitch ** 2) - 0.785 * (do ** 2))
 
         # Solve for Reynolds number
         self.Re = self.velocity * self.de * self.rho / self.mu
@@ -58,6 +62,6 @@ class Shell:
         self.jf = np.interp(self.Re, data[self.baffle_cut][0], data[self.baffle_cut][1])
 
         # Solve for pressure drop
-        self.deltaP = 8 * self.jf * (Ds / self.de) * (L / self.lB) * self.rho * (self.velocity ** 2) / 2
+        self.deltaP = (8 * self.jf * (Ds / self.de) * (L / self.lB) * self.rho * (self.velocity ** 2) / 2) * self.shell_passes
 
 

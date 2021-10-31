@@ -4,14 +4,13 @@ from data import clearance_data, jh_tube_data, jf_tube_data
 
 class Tubes:
 
-    def __init__(self, m_tube_in, Cp_tube, mu_tube, rho_tube, k_tube, head_type, k_tube_wall, L, di, do, pitch_type, tube_passes, fouling_factor, kw):
+    def __init__(self, m_tube_in, Cp_tube, mu_tube, rho_tube, k_tube, head_type, L, di, do, pitch_type, tube_passes, fouling_factor, kw):
         self.m= m_tube_in
         self.Cp = Cp_tube
         self.mu = mu_tube
         self.rho = rho_tube
         self.k = k_tube
         self.head_type = head_type
-        self.k_wall = k_tube_wall
         self.L = L
         self.di = di
         self.do = do
