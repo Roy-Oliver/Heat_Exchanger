@@ -4,23 +4,20 @@ from HeatExchanger import HeatExchanger
 
 def main():
     # Input Initial Guess for Overall Coefficient
-    U0ass = 300 # W/m2 K
+    U0ass = 10000 # W/m2 K
 
     # Input duty
-    Q = 1509400 # W
+    Q = 2233333 # W
 
     # Input mean temp difference
-    DTm = 71 # Kelvin
-
-    # Input error threshold for loop calculations (Normally set to 30%)
-    error_threshold = 30 # In percentage
+    DTm = 56.16 # Kelvin
 
     # Input properties of TUBE Stream
-    m_tube_in = 19.444 # kg/s
-    Cp_tube = 2.05 * (10 ** 3) # J/kg K
-    mu_tube = 3.2 * (10 ** (-3)) # Pa s
-    rho_tube = 820 # kg/m3
-    k_tube = 0.134 # W/m K
+    m_tube_in = 13.8888 # kg/s
+    Cp_tube = 2.68 * (10 ** 3) # J/kg K
+    mu_tube = 0.684 * (10 ** (-3)) # Pa s
+    rho_tube = 763.2 # kg/m3
+    k_tube = 0.158 # W/m K
 
     # Input properties of SHELL Stream
     m_shell_in = 5.56 # kg/s
@@ -30,20 +27,24 @@ def main():
     k_shell = 0.132  # W/m K
 
     # Input properties of TUBES
-    head_type = "SFH" # Options: PFH (pull-through floating head), SFH (split-ring floating head), OPB (outside packed bed), FAU (fixed and u-tube)
-    L = 3.5 # m
-    di = 0.01483 # m
-    do = 0.01905 # m
+    head_type = "PFH" # Options: PFH (pull-through floating head), SFH (split-ring floating head), OPB (outside packed bed), FAU (fixed and u-tube)
+    L = 4 # m
+    di = 0.025 # m
+    do = 0.029 # m
     pitch_type = "triangular" # "triangular" or "square"
     tube_passes = 4
-    tube_fouling_factor = 1/0.00035 # W/m2 K
-    tube_thermal_resistance = 55 # W/m K
+    tube_fouling_factor = 1/0.0002 # W/m2 K
+    tube_thermal_resistance = 50 # W/m K
 
     # Input properties of SHELL
-    baffle_spacing = 0.2764 # As a fraction of shell diameter
+    baffle_spacing = 0.2 # As a fraction of shell diameter
     baffle_cut = 25 # in percent. Available 15, 25, 35, 45,
-    shell_fouling_factor = 1/0.0002 # W/m2 K
+    shell_fouling_factor = 5000 # W/m2 K
     shell_passes = 1
+
+    # Input error threshold for loop calculations (Normally set to 30%)
+    error_threshold = 30 # In percentage
+
 
 
 
@@ -71,9 +72,30 @@ def main():
 
         loop_count += 1
 
-    # Print properties
-    print(f"Number of Loops = {loop_count}")
-    print(f"U0 = {HE.U0}, Tube Pressure Drop = {HE.tubes.deltaP}, Shell Side Pressure Drop = {HE.shell.deltaP}, Tube Number = {HE.tubes.nt}")
+        # Print properties
+        print(f"Number of Loops = {loop_count}")
+        print(f"U0 = {HE.U0}")
+        print("Tube Side:")
+        print(f"   Tube Pressure Drop = {HE.tubes.deltaP}")
+        print(f"   Velocity = {HE.tubes.velocity}\n")
+        print(f"   Number of tubes = {HE.tubes.nt}")
+        print(f"   Bundle Diameter = {HE.tubes.Db}")
+        print(f"   Shell Diameter = {HE.Ds}")
+        print(f"   Reynolds = {HE.tubes.Re}")
+        print(f"   Prandtl = {HE.tubes.Pr}")
+        print(f"   jh = {HE.tubes.jh}")
+        print(f"   jf = {HE.tubes.jf}")
+        print(f"   Tube side coefficient = {HE.tubes.hi}\n")
+
+        print("Shell Side:")
+        print(f"   Shell Pressure Drop = {HE.shell.deltaP}")
+        print(f"   Velocity = {HE.shell.velocity}\n")
+        print(f"   Shell flow area (As) = {HE.shell.As}")
+        print(f"   Reynolds = {HE.shell.Re}")
+        print(f"   Prandtl = {HE.shell.Pr}")
+        print(f"   jh = {HE.shell.jh}")
+        print(f"   jf = {HE.shell.jf}")
+        print(f"   Shell side coefficient = {HE.shell.hs}\n\n")
 
 
 
