@@ -4,43 +4,43 @@ from HeatExchanger import HeatExchanger
 
 def main():
     # Input Initial Guess for Overall Coefficient
-    U0ass = 10000 # W/m2 K
+    U0ass = 500 # W/m2 K
 
     # Input duty
-    Q = 2233333 # W
+    Q = 2280000 # W
 
     # Input mean temp difference
-    DTm = 56.16 # Kelvin
+    DTm = 48.6 # Kelvin
 
     # Input properties of TUBE Stream
-    m_tube_in = 13.8888 # kg/s
-    Cp_tube = 2.68 * (10 ** 3) # J/kg K
-    mu_tube = 0.684 * (10 ** (-3)) # Pa s
-    rho_tube = 763.2 # kg/m3
-    k_tube = 0.158 # W/m K
+    m_tube_in = 27.27 # kg/s
+    Cp_tube = 4.18 * (10 ** 3) # J/kg K
+    mu_tube = 6.71 * (10 ** (-4)) # Pa s
+    rho_tube = 992.8 # kg/m3
+    k_tube = 0.631 # W/m K
 
     # Input properties of SHELL Stream
-    m_shell_in = 5.56 # kg/s
-    Cp_shell = 2.47 * (10 ** 3)  # J/kg K
-    mu_shell = 0.43 * (10 ** (-3))  # Pa s
-    rho_shell = 730  # kg/m3
-    k_shell = 0.132  # W/m K
+    m_shell_in = 6.25 # kg/s
+    Cp_shell = 2.28 * (10 ** 3)  # J/kg K
+    mu_shell = 0.17 * (10 ** (-3))  # Pa s
+    rho_shell = 850  # kg/m3
+    k_shell = 0.125  # W/m K
 
     # Input properties of TUBES
     head_type = "PFH" # Options: PFH (pull-through floating head), SFH (split-ring floating head), OPB (outside packed bed), FAU (fixed and u-tube)
     L = 4 # m
-    di = 0.025 # m
-    do = 0.029 # m
+    di = 0.016 # m
+    do = 0.020 # m
     pitch_type = "triangular" # "triangular" or "square"
     tube_passes = 4
-    tube_fouling_factor = 1/0.0002 # W/m2 K
-    tube_thermal_resistance = 50 # W/m K
+    tube_fouling_factor = 1/0.00025 # W/m2 K
+    tube_thermal_resistance = 45 # W/m K
 
     # Input properties of SHELL
     baffle_spacing = 0.2 # As a fraction of shell diameter
     baffle_cut = 25 # in percent. Available 15, 25, 35, 45,
-    shell_fouling_factor = 5000 # W/m2 K
-    shell_passes = 1
+    shell_fouling_factor = 1/0.0002 # W/m2 K
+    shell_passes = 2
 
     # Input error threshold for loop calculations (Normally set to 30%)
     error_threshold = 30 # In percentage
