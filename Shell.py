@@ -1,5 +1,5 @@
 import numpy as np
-from data import jh_shell_data, jf_shell_data
+from data_sets import jh_shell_data, jf_shell_data
 
 class Shell:
     def __init__(self, m_shell_in, Cp_shell, mu_shell, rho_shell, k_shell, baffle_spacing, baffle_cut, fouling_factor, shell_passes):

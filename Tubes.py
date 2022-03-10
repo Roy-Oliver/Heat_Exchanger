@@ -1,6 +1,6 @@
 import math
 import numpy as np
-from data import clearance_data, jh_tube_data, jf_tube_data
+from data_sets import clearance_data, jh_tube_data, jf_tube_data
 
 class Tubes:
 
