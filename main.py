@@ -11,9 +11,6 @@ def main():
     # Input relative error for U0
     relative_error = 0.30 # in decimal
 
-    # Input Flow Type - cocurrent or countercurrent
-    flow = "countercurrent"
-
     # Input duty
     Q = 4340000 # W
 
@@ -57,7 +54,7 @@ def main():
 
 
     # Compute for true temperature difference
-    DTm = GetDTM(T1, T2, t1, t2, flow, shell_passes)
+    DTm = GetDTM(T1, T2, t1, t2, shell_passes)
 
     # Initialize Tubes Object
     he_tubes = Tubes(m_tube_in, Cp_tube, mu_tube, rho_tube, k_tube, head_type, L, di, do, pitch_type, tube_passes, tube_fouling_factor, tube_thermal_resistance)

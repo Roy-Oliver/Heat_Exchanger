@@ -1,10 +1,7 @@
-def GetDTM(T1, T2, t1, t2, flow, shell_passes):
+def GetDTM(T1, T2, t1, t2, shell_passes):
     import math
 
-    if flow == "countercurrent":
-        DTLM = ((T1 - t2) - (T2 - t1)) / math.log((T1 - t2) / (T2 - t1))
-    else:
-        DTLM = ((T1 - t1) - (T2 - t2)) / math.log((T1 - t1) / (T2 - t2))
+    DTLM = ((T1 - t2) - (T2 - t1)) / math.log((T1 - t2) / (T2 - t1))
 
     R = (T1 - T2) / (t2 - t1)
     S = (t2 - t1) / (T1 - t1)
