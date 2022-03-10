@@ -45,6 +45,12 @@ class UI(QMainWindow):
         self.pitch = self.findChild(QComboBox, "pitch_box")
         self.tube_passes = self.findChild(QComboBox, "tube_passes_box")
 
+        # Edit Shell Pass and Tube Passes ComboBoxes to be dependent
+        self.shell_passes.addItem("",[""])
+        self.shell_passes.addItem("1", ["", "2", "4", "6", "8"])
+        self.shell_passes.addItem("2", ["", "4", "8", "12"])
+        self.shell_passes.activated.connect(self.dep_box)
+
         # Outputs
         self.u = self.findChild(QLineEdit, "u_line")
         self.mean_temp = self.findChild(QLineEdit, "mean_temp_line")
@@ -70,6 +76,15 @@ class UI(QMainWindow):
 
         # Show the App
         self.show()
+
+    def dep_box(self, index):
+        # Makes the shell and tube passes dependent
+
+        # Clear the tubes box
+        self.tube_passes.clear()
+
+        # Make it dependent
+        self.tube_passes.addItems(self.shell_passes.itemData(index))
 
     def solver(self):
         try:
@@ -137,7 +152,7 @@ class UI(QMainWindow):
             self.mean_temp.setText("{:.3f}".format(results[1]))
             self.pressure_tube.setText("{:.3f}".format(results[2]))
             self.velocity_tube.setText("{:.3f}".format(results[3]))
-            self.tubes.setText("{:.3f}".format(results[4]))
+            self.tubes.setText(f"{results[4]}")
             self.bundle_diameter.setText("{:.3f}".format(results[5]))
             self.coefficient_tube.setText("{:.3f}".format(results[6]))
             self.pressure_shell.setText("{:.3f}".format(results[7]))
@@ -145,18 +160,19 @@ class UI(QMainWindow):
             self.shell_diameter.setText("{:.3f}".format(results[9]))
             self.coefficient_shell.setText("{:.3f}".format(results[10]))
 
+            success_message = QMessageBox()
+            success_message.setWindowTitle("Success!")
+            success_message.setText("Calculations completed successfully")
+            success_message.setIcon(QMessageBox.Information)
+            success_message.exec_()
+
+
         except:
             error_message = QMessageBox()
             error_message.setWindowTitle("Error")
             error_message.setText(f"An Error Occured! Traceback: \n\n {traceback.format_exc()}")
             error_message.setIcon(QMessageBox.Critical)
             error_message.exec_()
-
-
-
-
-
-
 
 # Initialize the app
 app = QApplication(sys.argv)
