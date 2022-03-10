@@ -1,6 +1,7 @@
 from Tubes import Tubes
 from Shell import Shell
 from HeatExchanger import HeatExchanger
+from scipy import optimize
 
 def main():
     # Input Initial Guess for Overall Coefficient
@@ -42,15 +43,6 @@ def main():
     shell_fouling_factor = 1/0.0002 # W/m2 K
     shell_passes = 2
 
-    # Input error threshold for loop calculations (Normally set to 30%)
-    error_threshold = 30 # In percentage
-
-
-
-
-
-
-
 
     # Initialize Tubes Object
     he_tubes = Tubes(m_tube_in, Cp_tube, mu_tube, rho_tube, k_tube, head_type, L, di, do, pitch_type, tube_passes, tube_fouling_factor, tube_thermal_resistance)
@@ -61,43 +53,45 @@ def main():
     # Initialize Heat Exchanger Object
     HE = HeatExchanger(he_shell, he_tubes, U0ass, Q, DTm)
 
-    # Solve the Heat Exchanger
-    error = 100 # set initial error
-    loop_count = 0
-    while error > error_threshold:
-        U01 = HE.U0
-        HE.solve() # update U0 of heat exchanger
-        # Solve for error
-        error = (abs(HE.U0 - U01) / HE.U0) * 100
+    def error(U0_old):
+        # Obtains the difference between the new U and old U
 
-        loop_count += 1
+        # Set the U0 of exchanger to old U and solve
+        HE.U0 = U0_old
+        HE.solve() # Updates the U0 of the HE object
+        U0_new = HE.U0
 
-        # Print properties
-        print(f"Number of Loops = {loop_count}")
-        print(f"U0 = {HE.U0}")
-        print("Tube Side:")
-        print(f"   Tube Pressure Drop = {HE.tubes.deltaP}")
-        print(f"   Velocity = {HE.tubes.velocity}\n")
-        print(f"   Number of tubes = {HE.tubes.nt}")
-        print(f"   Bundle Diameter = {HE.tubes.Db}")
-        print(f"   Shell Diameter = {HE.Ds}")
-        print(f"   Reynolds = {HE.tubes.Re}")
-        print(f"   Prandtl = {HE.tubes.Pr}")
-        print(f"   jh = {HE.tubes.jh}")
-        print(f"   jf = {HE.tubes.jf}")
-        print(f"   Tube side coefficient = {HE.tubes.hi}\n")
+        # Compute error and return the value
+        err = U0_new - U0_old
+        return err
 
-        print("Shell Side:")
-        print(f"   Shell Pressure Drop = {HE.shell.deltaP}")
-        print(f"   Velocity = {HE.shell.velocity}\n")
-        print(f"   Shell flow area (As) = {HE.shell.As}")
-        print(f"   Reynolds = {HE.shell.Re}")
-        print(f"   Prandtl = {HE.shell.Pr}")
-        print(f"   jh = {HE.shell.jh}")
-        print(f"   jf = {HE.shell.jf}")
-        print(f"   Shell side coefficient = {HE.shell.hs}\n\n")
+    # Set the error to zero using newton's method
+    optimize.newton(error, U0ass)
 
+    # Print properties
+    print(f"U0 = {HE.U0}")
+    print("Tube Side:")
+    print(f"   Tube Pressure Drop = {HE.tubes.deltaP}")
+    print(f"   Velocity = {HE.tubes.velocity}\n")
+    print(f"   Number of tubes = {HE.tubes.nt}")
+    print(f"   Bundle Diameter = {HE.tubes.Db}")
+    print(f"   Shell Diameter = {HE.Ds}")
+    print(f"   Reynolds = {HE.tubes.Re}")
+    print(f"   Prandtl = {HE.tubes.Pr}")
+    print(f"   jh = {HE.tubes.jh}")
+    print(f"   jf = {HE.tubes.jf}")
+    print(f"   Tube side coefficient = {HE.tubes.hi}\n")
 
+    print("Shell Side:")
+    print(f"   Shell Pressure Drop = {HE.shell.deltaP}")
+    print(f"   Velocity = {HE.shell.velocity}\n")
+    print(f"   Shell flow area (As) = {HE.shell.As}")
+    print(f"   Reynolds = {HE.shell.Re}")
+    print(f"   Prandtl = {HE.shell.Pr}")
+    print(f"   jh = {HE.shell.jh}")
+    print(f"   jf = {HE.shell.jf}")
+    print(f"   Shell side coefficient = {HE.shell.hs}\n\n")
+    print("_________________________________________________________")
 
 if __name__ == "__main__":
     main()
