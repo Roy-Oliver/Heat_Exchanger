@@ -1,8 +1,8 @@
-from Tubes import Tubes
-from Shell import Shell
-from HeatExchanger import HeatExchanger
+from Modules.Compute.Tubes import Tubes
+from Modules.Compute.Shell import Shell
+from Modules.Compute.HeatExchanger import HeatExchanger
 from scipy import optimize
-from TCorrFactor import GetDTM
+from Modules.Compute.TCorrFactor import GetDTM
 
 def main(input):
     # Input Initial Guess for Overall Coefficient

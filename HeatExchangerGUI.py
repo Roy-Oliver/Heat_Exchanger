@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QComboBox, QLineEdit, QPushButton, QMessageBox
 import sys
-import main
+from Modules.Compute import main
 import traceback
-from gui import Ui_main_window
+from Modules.GUI.gui import Ui_main_window
 
 class UI(QMainWindow):
 
