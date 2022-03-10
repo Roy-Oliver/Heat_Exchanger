@@ -51,10 +51,10 @@ class Tubes:
         # Solves for the bundle diameter
 
         # Get constants from Table 12.4
-        if self.pitch_type == "triangular":
+        if self.pitch_type == "Triangular":
             data = {1:[0.319, 2.142], 2:[0.249, 2.207], 4:[0.175, 2.285], 6:[0.0743, 2.499], 8:[0.0365, 2.675]}
             K1, n1 = data[self.tube_passes][0], data[self.tube_passes][1]
-        elif self.pitch_type == "square":
+        elif self.pitch_type == "Square":
             data = {1: [0.215, 2.207], 2: [0.156, 2.291], 4: [0.158, 2.263], 6: [0.0402, 2.617], 8: [0.0331, 2.643]}
             K1, n1 = data[self.tube_passes][0], data[self.tube_passes][1]
         else:

@@ -33,9 +33,9 @@ class Shell:
         # Solves for the Reynolds number of shell side
 
         # Solve for equivalent diameter
-        if pitch_type == "triangular":
+        if pitch_type == "Triangular":
             self.de = (1.10 / do) * ((pitch ** 2) - 0.917 * (do ** 2))
-        elif pitch_type == "square":
+        elif pitch_type == "Square":
             self.de = (1.27 / do) * ((pitch ** 2) - 0.785 * (do ** 2))
 
         # Solve for Reynolds number
