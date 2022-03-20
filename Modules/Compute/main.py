@@ -54,7 +54,10 @@ def main(input):
 
 
     # Compute for true temperature difference
-    DTm = GetDTM(T1, T2, t1, t2, shell_passes)
+    res = GetDTM(T1, T2, t1, t2, shell_passes)
+    lmtd = res[0]
+    ft = res[1]
+    DTm = res[2]
 
     # Initialize Tubes Object
     he_tubes = Tubes(m_tube_in, Cp_tube, mu_tube, rho_tube, k_tube, head_type, L, di, do, pitch_type, tube_passes, tube_fouling_factor, tube_thermal_resistance)
@@ -81,7 +84,7 @@ def main(input):
     optimize.newton(error, U0ass, rtol=relative_error)
 
     # Print properties
-    output = [HE.U0, DTm, HE.tubes.deltaP, HE.tubes.velocity, HE.tubes.nt, HE.tubes.Db, HE.tubes.hi, HE.shell.deltaP, HE.shell.velocity, HE.Ds, HE.shell.hs]
+    output = [HE.U0, lmtd, ft, DTm, HE.tubes.deltaP, HE.tubes.velocity, HE.tubes.nt, HE.tubes.Db, HE.tubes.Re, HE.tubes.Pr, HE.tubes.hi, HE.shell.deltaP, HE.shell.velocity, HE.Ds, HE.shell.Re, HE.shell.Pr, HE.shell.hs]
     return output
 
 # Input Initial Guess for Overall Coefficient

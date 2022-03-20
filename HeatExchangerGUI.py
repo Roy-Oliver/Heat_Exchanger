@@ -54,16 +54,23 @@ class UI(QMainWindow):
 
         # Outputs
         self.u = self.findChild(QLineEdit, "u_line")
+        self.lmtd = self.findChild(QLineEdit, "log_mean_temp_line")
+        self.ft = self.findChild(QLineEdit, "temp_factor_line")
         self.mean_temp = self.findChild(QLineEdit, "mean_temp_line")
         self.pressure_tube = self.findChild(QLineEdit, "pressure_tube_line")
         self.velocity_tube = self.findChild(QLineEdit, "velocity_tube_line")
         self.tubes = self.findChild(QLineEdit, "tubes_line")
         self.bundle_diameter = self.findChild(QLineEdit, "bundle_diameter_line")
+        self.re_tubes = self.findChild(QLineEdit, "re_tube_line")
+        self.pr_tubes = self.findChild(QLineEdit, "pr_tube_line")
         self.coefficient_tube = self.findChild(QLineEdit, "coefficient_tube_line")
         self.pressure_shell = self.findChild(QLineEdit, "pressure_shell_line")
         self.velocity_shell = self.findChild(QLineEdit, "velocity_shell_line")
         self.shell_diameter = self.findChild(QLineEdit, "shell_diameter_line")
+        self.re_shell = self.findChild(QLineEdit, "re_shell_line")
+        self.pr_shell = self.findChild(QLineEdit, "pr_shell_line")
         self.coefficient_shell = self.findChild(QLineEdit, "coefficient_shell_line")
+
 
         # Button
         self.solve = self.findChild(QPushButton, "solve_button")
@@ -147,19 +154,27 @@ class UI(QMainWindow):
             inputs.append(float(self.fouling_shell.text()))
             inputs.append(int(self.shell_passes.currentText()))
 
+            # Solve
             results = main.main(inputs)
 
+            # Display results
             self.u.setText("{:.3f}".format(results[0]))
-            self.mean_temp.setText("{:.3f}".format(results[1]))
-            self.pressure_tube.setText("{:.3f}".format(results[2]))
-            self.velocity_tube.setText("{:.3f}".format(results[3]))
-            self.tubes.setText(f"{results[4]}")
-            self.bundle_diameter.setText("{:.3f}".format(results[5]))
-            self.coefficient_tube.setText("{:.3f}".format(results[6]))
-            self.pressure_shell.setText("{:.3f}".format(results[7]))
-            self.velocity_shell.setText("{:.3f}".format(results[8]))
-            self.shell_diameter.setText("{:.3f}".format(results[9]))
-            self.coefficient_shell.setText("{:.3f}".format(results[10]))
+            self.lmtd.setText("{:.3f}".format(results[1]))
+            self.ft.setText("{:.3f}".format(results[2]))
+            self.mean_temp.setText("{:.3f}".format(results[3]))
+            self.pressure_tube.setText("{:.3f}".format(results[4]))
+            self.velocity_tube.setText("{:.3f}".format(results[5]))
+            self.tubes.setText(f"{results[6]}")
+            self.bundle_diameter.setText("{:.3f}".format(results[7]))
+            self.re_tubes.setText("{:.3f}".format(results[8]))
+            self.pr_tubes.setText("{:.3f}".format(results[9]))
+            self.coefficient_tube.setText("{:.3f}".format(results[10]))
+            self.pressure_shell.setText("{:.3f}".format(results[11]))
+            self.velocity_shell.setText("{:.3f}".format(results[12]))
+            self.shell_diameter.setText("{:.3f}".format(results[13]))
+            self.re_shell.setText("{:.3f}".format(results[14]))
+            self.pr_shell.setText("{:.3f}".format(results[15]))
+            self.coefficient_shell.setText("{:.3f}".format(results[16]))
 
             success_message = QMessageBox()
             success_message.setWindowTitle("Success!")

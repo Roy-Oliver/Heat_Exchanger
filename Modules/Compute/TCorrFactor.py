@@ -21,7 +21,7 @@ def GetDTM(T1, T2, t1, t2, shell_passes):
         denom_2 = (2 / S) - 1 - R + (2 / S) * math.sqrt((1 - S) * (1 - R * S)) - math.sqrt((R ** 2) + 1)
         Ft = numerator / (2 * (R - 1) * math.log(denom_1 / denom_2))
 
-    return DTLM * Ft
+    return [DTLM, Ft, DTLM * Ft]
 
 
 
