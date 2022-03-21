@@ -96,8 +96,11 @@ class UI(QMainWindow):
 
     def solver(self):
         try:
+
+            # Create an "inputs" list to be used as input to the main function
             inputs = []
 
+            # Fill variables into inputs
             inputs.append(float(self.guess_u.text()))
             inputs.append(float(self.error.text()))
             inputs.append(float(self.duty.text()))
@@ -106,7 +109,7 @@ class UI(QMainWindow):
             inputs.append(float(self.t_in_cold.text()))
             inputs.append(float(self.t_out_cold.text()))
 
-
+            # Put inputs depending on where the cold stream flows
             if self.stream_location.currentText() == "Shell":
                 inputs.append(float(self.flow_hot.text()))
                 inputs.append(float(self.cp_hot.text()))
@@ -132,6 +135,7 @@ class UI(QMainWindow):
                 inputs.append(float(self.rho_hot.text()))
                 inputs.append(float(self.k_hot.text()))
 
+            # Input head type
             if self.head_type.currentText() == "Pull-Through Floating Head":
                 inputs.append("PFH")
             elif self.head_type.currentText() == "Split-Ring Floating Head":
@@ -141,6 +145,7 @@ class UI(QMainWindow):
             else:
                 inputs.append("FAU")
 
+            # Input other inputs
             inputs.append(float(self.length.text()))
             inputs.append(float(self.inside_diameter.text()))
             inputs.append(float(self.outside_diameter.text()))
@@ -176,6 +181,7 @@ class UI(QMainWindow):
             self.pr_shell.setText("{:.3f}".format(results[15]))
             self.coefficient_shell.setText("{:.3f}".format(results[16]))
 
+            # Show success window
             success_message = QMessageBox()
             success_message.setWindowTitle("Success!")
             success_message.setText("Calculations completed successfully")
@@ -184,9 +190,10 @@ class UI(QMainWindow):
 
 
         except:
+            # Show error window
             error_message = QMessageBox()
             error_message.setWindowTitle("Error")
-            error_message.setText(f"An Error Occured! Traceback: \n\n {traceback.format_exc()}")
+            error_message.setText(f"An Error Occured! Check your inputs. \n\n {traceback.format_exc()}")
             error_message.setIcon(QMessageBox.Critical)
             error_message.exec_()
 
