@@ -1,7 +1,6 @@
 from Modules.Compute.Tubes import Tubes
 from Modules.Compute.Shell import Shell
 from Modules.Compute.HeatExchanger import HeatExchanger
-from scipy import optimize
 from Modules.Compute.TCorrFactor import GetDTM
 
 def main(input):
