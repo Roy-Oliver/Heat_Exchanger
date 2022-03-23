@@ -68,7 +68,7 @@ def main(input):
     # Initialize Heat Exchanger Object
     HE = HeatExchanger(he_shell, he_tubes, U0ass, Q, DTm)
 
-
+    # Iterate for error
     U0_new = U0ass
     r_error = 1
     while r_error > relative_error:
