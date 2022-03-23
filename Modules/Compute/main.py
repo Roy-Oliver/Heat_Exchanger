@@ -70,7 +70,7 @@ def main(input):
 
     # Iterate for error
     U0_new = U0ass
-    r_error = 1
+    r_error = relative_error + 200 # Make sure that r_error is always greater than relative error
     while r_error > relative_error:
         U0_old = U0_new
         HE.U0 = U0_new
