@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'gui.ui'
+# Form implementation generated from reading ui file 'C:\Users\olive\PycharmProjects\Heat_Exchanger\Modules\GUI\gui.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -2119,6 +2119,14 @@ class Ui_main_window(object):
         self.error_line = QtWidgets.QLineEdit(self.centralwidget)
         self.error_line.setObjectName("error_line")
         self.gridLayout_3.addWidget(self.error_line, 1, 1, 1, 1)
+        self.label_16 = QtWidgets.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        font.setItalic(True)
+        self.label_16.setFont(font)
+        self.label_16.setObjectName("label_16")
+        self.gridLayout_3.addWidget(self.label_16, 1, 2, 1, 1)
         self.gridLayout_7.addLayout(self.gridLayout_3, 7, 0, 1, 3)
         self.horizontalLayout.addLayout(self.gridLayout_7)
         main_window.setCentralWidget(self.centralwidget)
@@ -2222,7 +2230,7 @@ class Ui_main_window(object):
         self.label_57.setText(_translate("main_window", "Prandtl Number"))
         self.label_85.setText(_translate("main_window", "Log Mean Temperature Difference"))
         self.label_54.setText(_translate("main_window", "Shell Diameter"))
-        self.label_41.setText(_translate("main_window", "U"))
+        self.label_41.setText(_translate("main_window", "Overall Coefficient (U)"))
         self.label_56.setText(_translate("main_window", "Reynolds Number"))
         self.label_51.setText(_translate("main_window", "Shell Side"))
         self.label_82.setText(_translate("main_window", "m/s"))
@@ -2234,8 +2242,9 @@ class Ui_main_window(object):
         self.label_87.setText(_translate("main_window", "K"))
         self.label_37.setText(_translate("main_window", "RESULTS"))
         self.label_48.setText(_translate("main_window", "W/m2 K"))
-        self.label_4.setText(_translate("main_window", "Guess U"))
-        self.label_5.setText(_translate("main_window", "Required Error (From 0 to 1.0)"))
+        self.label_4.setText(_translate("main_window", "Guess Overall Coefficient (U)"))
+        self.label_5.setText(_translate("main_window", "Required Error (Percent)"))
+        self.label_16.setText(_translate("main_window", "%"))
         self.actionAbout.setText(_translate("main_window", "About"))
 
 

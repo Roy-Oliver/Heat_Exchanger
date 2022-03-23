@@ -68,20 +68,32 @@ def main(input):
     # Initialize Heat Exchanger Object
     HE = HeatExchanger(he_shell, he_tubes, U0ass, Q, DTm)
 
-    def error(U0_old):
-        # Obtains the difference between the new U and old U
+
+    U0_new = U0ass
+    r_error = 1
+    while r_error > relative_error:
+        U0_old = U0_new
+        HE.U0 = U0_new
+        HE.solve()
+        U0_new = HE.U0
+        r_error = (abs(U0_old - U0_new) / U0_new) * 100
+
+
+
+    #def error(U0_old):
+    #    # Obtains the difference between the new U and old U
 
         # Set the U0 of exchanger to old U and solve
-        HE.U0 = U0_old
-        HE.solve() # Updates the U0 of the HE object
-        U0_new = HE.U0
+    #    HE.U0 = U0_old
+    #    HE.solve() # Updates the U0 of the HE object
+    #    U0_new = HE.U0
 
         # Compute error and return the value
-        err = U0_new - U0_old
-        return err
+    #    err = U0_new - U0_old
+    #    return err
 
     # Set the error to zero using newton's method
-    optimize.newton(error, U0ass, rtol=relative_error)
+    #optimize.newton(error, U0ass, rtol=relative_error)
 
     # Print properties
     output = [HE.U0, lmtd, ft, DTm, HE.tubes.deltaP, HE.tubes.velocity, HE.tubes.nt, HE.tubes.Db, HE.tubes.Re, HE.tubes.Pr, HE.tubes.hi, HE.shell.deltaP, HE.shell.velocity, HE.Ds, HE.shell.Re, HE.shell.Pr, HE.shell.hs]
